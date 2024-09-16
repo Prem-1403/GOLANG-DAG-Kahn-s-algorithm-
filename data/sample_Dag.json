@@ -1,0 +1,11 @@
+{
+  "vertices": {
+    "0": { "id": 0, "data": { "name": "Genesis Block", "info": "Root" } },
+    "1": { "id": 1, "data": { "name": "Block 1", "info": "Data 1" } },
+    "2": { "id": 2, "data": { "name": "Block 2", "info": "Data 2" } }
+  },
+  "edges": [
+    { "src": 0, "dest": 1 },
+    { "src": 0, "dest": 2 }
+  ]
+}
