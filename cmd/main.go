@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	vertices, edges := dag.LoadData("C:/Users/Prem/Desktop/blockdag/data/sample_dag.json")
+	vertices, edges := dag.LoadData("C:\\Users\\Prem\\Desktop\\DAG\\data\\sample_Dag.json")
 
 	// Check if data is loaded correctly
 	fmt.Println("Loaded Vertices:", vertices)

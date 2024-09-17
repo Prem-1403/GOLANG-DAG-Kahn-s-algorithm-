@@ -49,7 +49,7 @@ func VisualizeDAG(vertices map[int]Vertex, edges []Edge, filePath string) {
 		SetSeriesOptions(
 			charts.WithGraphChartOpts(opts.GraphChart{
 				Layout: "force",
-				Force:  &opts.GraphForce{Repulsion: 4000},
+				Force:  &opts.GraphForce{Repulsion: 2000},
 			}),
 		)
 	tip := true

@@ -1,11 +1,24 @@
 {
   "vertices": {
-    "0": { "id": 0, "data": { "name": "Genesis Block", "info": "Root" } },
-    "1": { "id": 1, "data": { "name": "Block 1", "info": "Data 1" } },
-    "2": { "id": 2, "data": { "name": "Block 2", "info": "Data 2" } }
+    "0": { "id": 0, "data": { "name": "Genesis Block", "info": "Root of the DAG" } },
+    "1": { "id": 1, "data": { "name": "Block 1", "info": "First branch" } },
+    "2": { "id": 2, "data": { "name": "Block 2", "info": "First branch" } },
+    "3": { "id": 3, "data": { "name": "Block 3", "info": "Second branch" } },
+    "4": { "id": 4, "data": { "name": "Block 4", "info": "First branch extension" } },
+    "5": { "id": 5, "data": { "name": "Block 5", "info": "Second branch extension" } },
+    "6": { "id": 6, "data": { "name": "Block 6", "info": "Third branch" } },
+    "7": { "id": 7, "data": { "name": "Block 7", "info": "First and second branch convergence" } }
   },
   "edges": [
     { "src": 0, "dest": 1 },
-    { "src": 0, "dest": 2 }
+    { "src": 0, "dest": 2 },
+    { "src": 0, "dest": 3 },
+    { "src": 1, "dest": 4 },
+    { "src": 2, "dest": 4 },
+    { "src": 3, "dest": 5 },
+    { "src": 4, "dest": 7 },
+    { "src": 5, "dest": 7 },
+    { "src": 0, "dest": 6 },
+    { "src": 6, "dest": 7 }
   ]
 }
