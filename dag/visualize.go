@@ -26,11 +26,12 @@ func VisualizeDAG(vertices map[int]Vertex, edges []Edge, filePath string) {
 		node := opts.GraphNode{
 			Name:       nodeName,
 			SymbolSize: 20,
+			// Optionally, use 'arrow' or another symbol for target nodes if available
 		}
 		nodes = append(nodes, node)
 	}
 
-	// For every edge, create a corresponding link
+	// For every edge, create a corresponding link (without arrows for now)
 	for _, edge := range edges {
 		source := fmt.Sprintf("Vertex %d", edge.Src)
 		target := fmt.Sprintf("Vertex %d", edge.Dest)
@@ -44,22 +45,30 @@ func VisualizeDAG(vertices map[int]Vertex, edges []Edge, filePath string) {
 	// Debug print to check the generated nodes and links
 	fmt.Println("Nodes:", nodes)
 	fmt.Println("Links:", links)
-
-	graph.AddSeries("graph", nodes, links).
-		SetSeriesOptions(
-			charts.WithGraphChartOpts(opts.GraphChart{
-				Layout: "force",
-				Force:  &opts.GraphForce{Repulsion: 2000},
-			}),
-		)
 	tip := true
 	graph.SetGlobalOptions(
 		charts.WithTitleOpts(opts.Title{
-			Title: "DAG Visualization",
+			Title: "Block DAG Visualization",
 		}),
-		charts.WithTooltipOpts(opts.Tooltip{Show: &tip}),
-		charts.WithLegendOpts(opts.Legend{Show: &tip}),
+		charts.WithTooltipOpts(opts.Tooltip{
+			Show: &tip,
+		}),
+		charts.WithInitializationOpts(opts.Initialization{
+			Width:  "1200px",
+			Height: "800px",
+		}),
 	)
+
+	graph.AddSeries("BlockDAG", nodes, links).
+		SetSeriesOptions(
+			charts.WithGraphChartOpts(opts.GraphChart{
+				Force: &opts.GraphForce{
+					Repulsion: 1600,
+				},
+				EdgeSymbol:     []string{"none", "arrow"}, // Show arrows on edges
+				EdgeSymbolSize: 10,
+			}),
+		)
 
 	f, err := os.Create(filePath)
 	if err != nil {

@@ -116,6 +116,45 @@ func LoadData(filepath string) (map[int]Vertex, []Edge) {
 
 	return data.Vertices, data.Edges
 }
+func HasCycle(vertices map[int]Vertex, edges []Edge) bool {
+	visited := make(map[int]bool)
+	recStack := make(map[int]bool)
+
+	// Helper function for DFS cycle detection
+	var dfs func(v int) bool
+	dfs = func(v int) bool {
+		if recStack[v] {
+			return true
+		}
+		if visited[v] {
+			return false
+		}
+
+		visited[v] = true
+		recStack[v] = true
+
+		for _, edge := range edges {
+			if edge.Src == v { // Capitalized field
+				if dfs(edge.Dest) { // Capitalized field
+					return true
+				}
+			}
+		}
+
+		recStack[v] = false
+		return false
+	}
+
+	// Check each vertex for cycle
+	for vertex := range vertices {
+		if dfs(vertex) {
+			return true
+		}
+	}
+
+	return false
+}
+
 func isLeaf(vertices map[int]Vertex, edges []Edge, id int) bool {
 	if _, exists := vertices[id]; !exists {
 		return false
