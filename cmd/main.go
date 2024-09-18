@@ -7,11 +7,6 @@ import (
 
 func main() {
 	vertices, edges := dag.LoadData("C:\\Users\\Prem\\Desktop\\DAG\\data\\sample_Dag.json")
-
-	// Check if data is loaded correctly
-	fmt.Println("Loaded Vertices:", vertices)
-	fmt.Println("Loaded Edges:", edges)
-
 	// Check for cycles before building the BlockDAG
 	if dag.HasCycle(vertices, edges) {
 		fmt.Println("Error: A cycle was detected in the DAG. This input does not form a valid DAG.")
@@ -26,12 +21,12 @@ func main() {
 	}
 
 	// Print block signatures
-	fmt.Println("Block Signatures:")
+	/*fmt.Println("Block Signatures:")
 	for id, sig := range signatures {
 		if id != -1 {
 			fmt.Printf("Block %d: %s\n", id, sig["data_hash"])
 		}
-	}
+	}*/
 
 	// Visualize DAG
 	dag.VisualizeDAG(vertices, edges, "./blockdag.html")

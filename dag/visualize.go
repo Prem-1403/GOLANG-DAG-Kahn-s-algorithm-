@@ -43,8 +43,8 @@ func VisualizeDAG(vertices map[int]Vertex, edges []Edge, filePath string) {
 	}
 
 	// Debug print to check the generated nodes and links
-	fmt.Println("Nodes:", nodes)
-	fmt.Println("Links:", links)
+	//fmt.Println("Nodes:", nodes)
+	//fmt.Println("Links:", links)
 	tip := true
 	graph.SetGlobalOptions(
 		charts.WithTitleOpts(opts.Title{
@@ -63,7 +63,7 @@ func VisualizeDAG(vertices map[int]Vertex, edges []Edge, filePath string) {
 		SetSeriesOptions(
 			charts.WithGraphChartOpts(opts.GraphChart{
 				Force: &opts.GraphForce{
-					Repulsion: 1600,
+					Repulsion: 0,
 				},
 				EdgeSymbol:     []string{"none", "arrow"}, // Show arrows on edges
 				EdgeSymbolSize: 10,

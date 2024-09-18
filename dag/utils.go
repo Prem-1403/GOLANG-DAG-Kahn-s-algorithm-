@@ -6,7 +6,7 @@ import (
 )
 
 // Print DAG information to console
-func PrettyPrint(vertices map[int]Vertex, edges []Edge, indent int) {
+func Prettyrint(vertices map[int]Vertex, edges []Edge, indent int) {
 	fmt.Println("------ VERTICES ------")
 	for id, vertex := range vertices {
 		fmt.Printf("%*sVertex %d: %v\n", indent, "", id, vertex.Data)
