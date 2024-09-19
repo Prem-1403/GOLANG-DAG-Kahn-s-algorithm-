@@ -25,13 +25,18 @@ func VisualizeDAG(vertices map[int]Vertex, edges []Edge, filePath string) {
 		nodeName := fmt.Sprintf("Vertex %d", vertex.ID)
 		node := opts.GraphNode{
 			Name:       nodeName,
-			SymbolSize: 20,
-			// Optionally, use 'arrow' or another symbol for target nodes if available
+			SymbolSize: 5,
+		}
+		if vertex.ID == 0 {
+			node.ItemStyle = &opts.ItemStyle{
+				Color: "#FF0000", // Genesis block in red
+			}
+			node.SymbolSize = 10 // Make the genesis block larger
 		}
 		nodes = append(nodes, node)
 	}
 
-	// For every edge, create a corresponding link (without arrows for now)
+	// For every edge, create a corresponding link (with arrows)
 	for _, edge := range edges {
 		source := fmt.Sprintf("Vertex %d", edge.Src)
 		target := fmt.Sprintf("Vertex %d", edge.Dest)
@@ -42,9 +47,6 @@ func VisualizeDAG(vertices map[int]Vertex, edges []Edge, filePath string) {
 		links = append(links, link)
 	}
 
-	// Debug print to check the generated nodes and links
-	//fmt.Println("Nodes:", nodes)
-	//fmt.Println("Links:", links)
 	tip := true
 	graph.SetGlobalOptions(
 		charts.WithTitleOpts(opts.Title{
@@ -54,19 +56,19 @@ func VisualizeDAG(vertices map[int]Vertex, edges []Edge, filePath string) {
 			Show: &tip,
 		}),
 		charts.WithInitializationOpts(opts.Initialization{
-			Width:  "1200px",
-			Height: "800px",
+			Width:  "800%", // Use percentage for width
+			Height: "800%", // Use percentage for height
 		}),
 	)
-
 	graph.AddSeries("BlockDAG", nodes, links).
 		SetSeriesOptions(
 			charts.WithGraphChartOpts(opts.GraphChart{
 				Force: &opts.GraphForce{
-					Repulsion: 0,
+					Repulsion: 100, // Increased repulsion for large datasets
 				},
 				EdgeSymbol:     []string{"none", "arrow"}, // Show arrows on edges
-				EdgeSymbolSize: 10,
+				EdgeSymbolSize: 5,
+				Roam:           &tip, // Enable zoom and pan
 			}),
 		)
 
